@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <title>youtube-remote</title>
+</head>
+
+<body>
+    <div class="container">
+
+        <button id="play">Play</button>
+        <button id="prev">Back</button>
+        <button id="next">Next</button>
+
+        <div    id="player-wrap"></div>
+
+        <form id="form">
+            <fieldset>
+                <legend><b>paste https URL:</b></legend>
+                <label for="append">URL to append:</label>
+                <input type="text" append="append" id="append" placeholder="https://youtube.com/..." required>
+                <input type="submit" value="Send">
+            </fieldset>
+        </form>
+
+        <div class="alert">your append request has been sent</div>
+
+        <ol id="reqList"><b>Playlist:</b></ol>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

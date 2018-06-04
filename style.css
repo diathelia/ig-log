@@ -1,0 +1,30 @@
+html, body {
+    width: 100vw;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    overflow-x: hidden;
+    background-color: rgb(255, 0, 0);
+    color: auto;
+    font-family: Consolas, monaco, monospace;
+}
+
+.container {
+    position: relative;
+    width: 97%;
+    height: 94%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgb(32, 32, 32);
+    color: red;
+}
+
+.alert {
+    text-align: center;
+    padding: 0.3rem;
+    background: black;
+    color: red;
+    margin-bottom: 0.3rem;
+    display: none;
+}
