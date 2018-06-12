@@ -10,10 +10,10 @@ var config = {
 
 firebase.initializeApp(config);
 
-    // reference to appends collection
+// reference to collection
 var appendsRef = firebase.database().ref('appends'),
     // playlist DOM node
-    reqList    = document.querySelector('#reqList'),
+    // reqList    = document.querySelector('#reqList'),
     // global array for embeddable URL playlist
     embedURLs  = [],
     // current URL counter
@@ -40,23 +40,31 @@ function embeddableURL(URL) {
 
 // populates list and listens for any more appends
 appendsRef.on('child_added', function(snapshot) {
+    if (snapshot.child('append').val().toString().startsWith('https')) {
+        var url = getURL(snapshot.val()),
+            li  = document.createElement('li'),
+            li2 = document.createElement('li');
 
-    var url = getURL(snapshot.val()),
-        li  = document.createElement('li');
-    
-    li.innerHTML = '<a class="url-item" href="' + url + '">' + url + '</a>';
-    reqList.appendChild(li);
+        li.innerHTML = '<a style="display: inline-block" class="url-item" href="' + url + '">' + url + '</a>';
+        li2.innerHTML = '<span>' + snapshot.child('username').val() + '</span>';
 
+        document.querySelector('#reqList').appendChild(li);
+        document.querySelector('#userList').appendChild(li2);
+    } else {
+        console.log('error: insecure url. please use https');
+    }
 }, function(e){
     console.log(e);
 });
+
+/* Player Functions ======================================================================================================*/
 
 // create youtube player and add first item
 document.querySelector('#play').addEventListener('click', function() {
 
     // set this global to an array of <a> classes (the playlist)
     linkItems = document.querySelectorAll('.url-item');
-
+    
     // set first playlist highlight
     linkItems[currentURL].style.backgroundColor = 'yellow';
 
@@ -67,7 +75,7 @@ document.querySelector('#play').addEventListener('click', function() {
 
     // create youtube iframe with an id to change src via properties, set to first URL for now
     document.querySelector('#player-wrap').innerHTML =
-    '<iframe id="player" controls frameborder="0" allowfullscreen width="420" height="315" src="'+
+    '<iframe id="player" controls frameborder="0" allowfullscreen width="450" height="315" src="'+
     embedURLs[0]+'"></iframe>';
 });
 
@@ -120,20 +128,21 @@ function navigation(cmd) {
     }
 }
 
-/* Form Submission ========================================================================================================*/
+/* Firebase Form Submission =================================================================================================*/
 
 // listen for form submit
-document.querySelector('#form').addEventListener('submit', submitForm);
+document.querySelector('#append-form').addEventListener('submit', submitForm);
 
 // function called on submit
 function submitForm(e) {
     e.preventDefault();
+    
+    // get value
+    var username = inputVal('user');
+    var append = inputVal('url');
 
-    // get value(s)
-    var append = inputVal('append');
-
-    // save append request to firebase as an object 
-    saveAppend(append);
+    // save request to firebase as an object 
+    saveAppend(username, append);
 
     // Show alert
     document.querySelector('.alert').style.display = 'block';
@@ -144,7 +153,7 @@ function submitForm(e) {
     }, 3000);
 
     // reset inputs
-    document.querySelector('#form').reset();
+    document.querySelector('#append-form').reset();
 }
 
 // function to get form value(s) by <input> id
@@ -152,11 +161,14 @@ function inputVal(id) {
     return document.getElementById(id).value;
 }
 
-// save append request to firebase
-function saveAppend(append) {
+// save  request to firebase
+function saveAppend(username, append) {
     var newAppendRef = appendsRef.push();
     
+    console.log(appendsRef.push().key);
+    
     newAppendRef.set({
+        username: username,
         append: append
     });
 }

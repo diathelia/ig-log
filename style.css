@@ -13,11 +13,22 @@ html, body {
 .container {
     position: relative;
     width: 97%;
-    height: 94%;
+    height: 97%;
     margin-left: auto;
     margin-right: auto;
     background-color: rgb(32, 32, 32);
     color: red;
+}
+
+#controls {
+    width: 447px;
+}
+
+#controls button {
+    display: inline-block;
+    width: 30%;
+    height: 100%;
+    margin: 0.48rem 0 0 0.48rem; 
 }
 
 .alert {
@@ -27,4 +38,40 @@ html, body {
     color: red;
     margin-bottom: 0.3rem;
     display: none;
+}
+
+#player-wrap {
+    margin-bottom: 0.4rem;
+}
+fieldset {
+    position: relative;
+    width: 390px;
+}
+
+#vote {
+    margin-left: 80px;
+}
+
+#user {
+    margin-left: 44px; 
+}
+
+#ulabel {
+    margin-left: 16px; 
+}
+
+.inlist, .inlist a {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+}
+
+#reqList {
+    width: 400px;
+    margin: 0.4rem 0 0 1.95rem;
+}
+
+#userList {
+    width: 150px;
+    list-style: none; 
 }
