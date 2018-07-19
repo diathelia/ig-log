@@ -34,12 +34,6 @@ body {
   vertical-align: top;
 }
 
-#session-list {
-  /* overflow-y: hidden;
-  overflow-x: scroll; */
-  /* display: none; */
-}
-
 #search-container {
   margin: 0;
   width: 60%;
