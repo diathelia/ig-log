@@ -1,52 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="icon" href="img/favicon.png">
-    <link rel="stylesheet" href="style.css">
-    <title>youtube-remote</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+  <link rel="stylesheet" href="style2.css">
+  <title>youtube-api</title>
 </head>
 
 <body>
-    <div class="container">
-    <div id="controls">
-        <button id="play">Play</button>
-        <button id="prev">Back</button>
-        <button id="next">Next</button>
+  <div class="player-wrap">
+    <!-- 1. The <iframe> (and video player) from the youtube player API -->
+    <div id="player">
+      YouTube player failed to load, please try refreshing your browser
     </div>
+  </div>
+  <!-- this container holds the cue's, playlists and histories of the session
+       the user owns this space except for the playlist which no one owns -->
+  <div class="session-wrap">
+    <button id="back">Back</button>
+    <button id="next">Next</button>
+    <ul id="session-list"></ul>
+  </div>
 
-        <div id="player-wrap"></div>
+  <br>
+  <div id="enter">
+    <p>enter a YouTube link:</p>
+    <input type="text" id="url" placeholder="enter a link">
+    <button id="submit">Enter</button>
+  </div>
 
-        <form id="append-form">
-            <fieldset>
-                <label id="ulabel" for="user">username:</label>
-                <input type="text" name="user" id="user" placeholder="username" required>
 
-                <!-- <fieldset>
-                    <legend><b>vote for next:</b></legend>
-                        <label for="vote">vote:</label>
-                        <input type="number" id="vote" placeholder="playlist number" required>
-                    <input type="submit" value="Add Vote">
-                </fieldset> -->
 
-                <fieldset>
-                    <legend><b>https URL:</b></legend>
-                        <label for="url">URL to append:</label>
-                        <input type="text" name="url" id="url" placeholder="https://youtube.com/..." required>
-                        <input type="submit" value="Submit">
-                </fieldset>
-            </fieldset>
-        </form>
+  <!-- this section leverages the youtube data API to search by keyword -->
+  <div id="buttons">
+    <p>or search for a video:</p>
+    <input id="query" value='cats' type="text" />
+    <button id="search-button" disabled onclick="search()">Search</button>
+  </div>
+  <div id="search-container">
+    <ul id="search-list"></ul>
+  </div>
 
-        <div class="alert">your request has been sent</div>
-        
-        <ol class="inlist" id="reqList"><b>Playlist:</b></ol>
-        <ul class="inlist" id="userList"></ul>
-    </div>
-
-    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
-    <script src="main.js"></script>
+  <script src="https://apis.google.com/js/api.js"></script>
+  <script src="search.js"></script>
+  <script src="https://apis.google.com/js/client.js?onload=googleApiClientReady"></script>
+  <script src="id-extract.js"></script>
+  <script src="player.js"></script>
 </body>
+
 </html>
