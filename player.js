@@ -15,7 +15,7 @@ function onYouTubeIframeAPIReady() {
   player = new YT.Player("player", {
     height: "100%",
     width: "100%",
-    playerVars: { origin: "127.0.0.1:5500" }
+//     playerVars: { origin: "127.0.0.1:5500" }
     // videoId: "",
     // events: {
     // onReady: onPlayerReady
