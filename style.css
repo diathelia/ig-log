@@ -26,12 +26,14 @@ body {
 
 .session-wrap {
   display: inline-block;
-  width: 629px;
-  height: 355px;
+  width: 629px; /* why -11px? */
+  height: 349px; /* why -11px? */
   border: solid 1px red;
   margin: 0 0 0.3rem 0;
   padding: 0.3rem;
   vertical-align: top;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 #search-container {
@@ -67,9 +69,18 @@ input {
   margin-left: 0.3rem;
 }
 
-.thumbnail {
+.highlight,
+.searchLi {
   margin-bottom: 0.7rem;
+  background: rgb(250, 250, 250);
+  border: solid 0.5px lightgray;
 }
+
+.thumbnail {
+  margin: 0;
+  padding-top: 0.35rem;
+}
+
 .thumbnail,
 .summary {
   display: inline-block;
@@ -82,5 +93,14 @@ input {
 }
 
 .summary li {
-  margin-bottom: 0.3rem;
+  margin-top: 0.3rem;
 }
+
+.summary a {
+  margin: 0;
+  padding: 0;
+}
+
+/* .summary li:nth-last-child(1) {
+  margin-bottom: 0;
+} */

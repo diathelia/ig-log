@@ -39,7 +39,15 @@ function start() {
 
 // Search for a specified string on click
 function search() {
+  // check to clear previous search results
+  if (document.querySelector("#search-list").innerHTML !== "") {
+    console.log("emptying...");
+    document.querySelector("#search-list").innerHTML = "";
+  }
+
+  // get new query
   var q = $("#query").val();
+
   gapi.client.youtube.search
     .list({
       q: q,
@@ -48,45 +56,30 @@ function search() {
       type: "video",
       videoEmbeddable: true
     })
-    .then(
-      function(response) {
-        // populate #search-container with list of results
-        response.result.items.forEach(function(item) {
+    .then(function(response) {
+      // populate #search-container with list of results
+      response.result.items.forEach(
+        function(item) {
           // create custom result object
           var result = {};
           // populate custom result object
           result.title = item.snippet.title;
           result.desc = item.snippet.description;
           result.channel = item.snippet.channelTitle;
-          result.date = item.snippet.publishedAt;
+          result.date = item.snippet.publishedAt.slice(0, 10);
           result.small = item.snippet.thumbnails.default.url;
           result.img = item.snippet.thumbnails.medium.url;
           result.id = item.id.videoId;
 
-          // clean date string
-          result.date = result.date.slice(0, 10);
-
           // pass result object to html constructor
           new SearchResult(result);
-        });
-
-        // create array of search result buttons
-        var addButtons = document.querySelectorAll(".add-url");
-        addButtons.forEach(function(button) {
-          // attach listeners to the array of buttons
-          button.addEventListener("click", function() {
-            // pass this result to player.js to cue/play
-            userAddEvent(this.id);
-            // note: 'this.id' is NOT an object.property --> it is the DOM buttons id attribute
-          });
-        });
-
-        // var str = JSON.stringify(response.result, null, "\t");
-      },
-      function(reason) {
-        console.log("search error: " + reason.result.error.message);
-      }
-    );
+          // var str = JSON.stringify(response.result, null, "\t");
+        },
+        function(reason) {
+          console.log("search error: " + reason.result.error.message);
+        }
+      );
+    });
 }
 
 // search result constructor
@@ -97,14 +90,16 @@ function SearchResult(result) {
   // append results to list
   document.querySelector("#search-list").insertAdjacentHTML(
     "beforeend",
-    `<li>
-      <p id="${result.id}" style="display:none">${resultString}</p>
+    `<li class="searchLi">
+    <p id="${result.id}" style="display:none">${resultString}</p>
       <div class="thumbnail">
         <img src=${result.img}>
       </div>
       <div class="summary">
         <ul>
-          <li><button class="add-url" id="${result.id}">Add To Playlist</li>
+          <li><button class="add-url" id="${
+            result.id
+          }" onclick="userAddEvent(this.id)">Add To Playlist</li>
           <li><b>${result.title}</b></li>
           <li><em>${result.desc}</em></li>
           <li>Uploaded by ${result.channel} at ${result.date}</li>

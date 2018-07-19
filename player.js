@@ -15,7 +15,7 @@ function onYouTubeIframeAPIReady() {
   player = new YT.Player("player", {
     height: "100%",
     width: "100%",
-//     playerVars: { origin: "127.0.0.1:5500" }
+    playerVars: { origin: "127.0.0.1:5500" } // LOCALS ONLY
     // videoId: "",
     // events: {
     // onReady: onPlayerReady
@@ -48,14 +48,16 @@ function userAddEvent(id) {
       <div class="summary">
         <ul>
           <li><b>${result.title}</b></li>
-          <li><em>Uploaded by ${result.channel} at ${result.date}</em></li>
           <li><strong>Added by ${user}</strong></li>
         </ul>
       </div>
     </li>`
   );
 
+  // update sessionList array count
   sessionList = document.querySelectorAll(".highlight");
+
+  // use to determine highlighting and cueing
   if (sessionList.length === 1) {
     console.log("only one added video --> cue now");
     player.cueVideoById(id);
@@ -64,14 +66,6 @@ function userAddEvent(id) {
   } else {
     console.log("at least 2 added videos --> don't cue");
   }
-
-  // condition for playing / cueing
-  // if ( session-list has only one li) {
-  // cue it immediately
-  // } else {
-  // append ID to custom/API-based playlist
-  // this list must know the id to use and the <li> it relates to...
-  // }
 }
 
 /* From prototype (main.js) ====================================================================*/
@@ -108,11 +102,19 @@ function navigation(cmd) {
 }
 
 document.querySelector("#next").addEventListener("click", function() {
-  navigation("next");
+  if (sessionList) {
+    navigation("next");
+  } else {
+    console.log("no session playlist exists");
+  }
 });
 
 document.querySelector("#back").addEventListener("click", function() {
-  navigation("back");
+  if (sessionList) {
+    navigation("back");
+  } else {
+    console.log("no session playlist exists");
+  }
 });
 
 /* From YouTube API ============================================================================*/
