@@ -1,77 +1,92 @@
-html, body {
-    width: 100vw;
-    height: 100vh;
-    padding: 0;
-    margin: 0;
-    border: 0;
-    overflow-x: hidden;
-    background-color: rgb(255, 0, 0);
-    color: auto;
-    font-family: Consolas, monaco, monospace;
+/* prototype styling --> intend to use bootstrap / react / another UI template */
+
+/* containers */
+html,
+body {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  overflow-x: hidden;
+  background-color: rgb(255, 255, 255);
+  color: auto;
+  font-family: Consolas, monaco, monospace;
 }
 
-.container {
-    position: relative;
-    width: 97%;
-    height: 97%;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: rgb(32, 32, 32);
-    color: red;
+body {
+  width: 100vw;
+  height: 100vh;
+  margin: 0.3rem 0 0 0.3rem;
 }
 
-#controls {
-    width: 447px;
+.player-wrap {
+  width: 640px;
+  height: 360px;
+  display: inline-block;
 }
 
-#controls button {
-    display: inline-block;
-    width: 30%;
-    height: 100%;
-    margin: 0.48rem 0 0 0.48rem; 
+.session-wrap {
+  display: inline-block;
+  width: 629px;
+  height: 358px;
+  border: solid 1px red;
+  margin: 0 0 0.3rem 0;
+  padding: 0.3rem;
+  vertical-align: top;
 }
 
-.alert {
-    text-align: center;
-    padding: 0.3rem;
-    background: black;
-    color: red;
-    margin-bottom: 0.3rem;
-    display: none;
+#session-list {
+  /* overflow-y: hidden;
+  overflow-x: scroll; */
+  /* display: none; */
 }
 
-#player-wrap {
-    margin-bottom: 0.4rem;
-}
-fieldset {
-    position: relative;
-    width: 390px;
-}
-
-#vote {
-    margin-left: 80px;
+#search-container {
+  margin: 0;
+  width: 60%;
+  height: auto;
+  color: rgb(0, 0, 0);
+  display: inline-block;
 }
 
-#user {
-    margin-left: 44px; 
+/* forms and lists */
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
-#ulabel {
-    margin-left: 16px; 
+#enter,
+#buttons {
+  width: 30rem;
+  margin-bottom: 0.3rem;
+  padding: 0.6rem;
+  border: solid 1px red;
+  text-align: center;
 }
 
-.inlist, .inlist a {
-    display: inline-block;
-    margin: 0;
-    padding: 0;
+#enter p,
+#buttons p {
+  margin: 0 0 0.5rem 0;
 }
 
-#reqList {
-    width: 400px;
-    margin: 0.4rem 0 0 1.95rem;
+input {
+  margin-left: 0.3rem;
 }
 
-#userList {
-    width: 150px;
-    list-style: none; 
+.thumbnail {
+  margin-bottom: 0.7rem;
+}
+.thumbnail,
+.summary {
+  display: inline-block;
+}
+
+.summary {
+  width: 60%;
+  height: 100%;
+  vertical-align: top;
+}
+
+.summary li {
+  margin-bottom: 0.3rem;
 }
