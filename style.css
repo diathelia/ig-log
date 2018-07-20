@@ -19,8 +19,8 @@ body {
 }
 
 .player-wrap {
-  width: 640px;
-  height: 360px;
+  width: 640px; /* youtube standard */
+  height: 360px; /* youtube standard */
   display: inline-block;
 }
 
@@ -32,6 +32,12 @@ body {
   margin: 0 0 0.3rem 0;
   padding: 0.3rem;
   vertical-align: top;
+}
+
+#session-list {
+  margin-top: 0.3rem;
+  width: 629px;
+  height: 321px;
   overflow-y: scroll;
   overflow-x: hidden;
 }
@@ -42,6 +48,14 @@ body {
   height: auto;
   color: rgb(0, 0, 0);
   display: inline-block;
+}
+
+/* clickable things */
+.highlight,
+.add-url,
+#submit,
+#search-button {
+  cursor: pointer;
 }
 
 /* forms and lists */

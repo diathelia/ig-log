@@ -1,29 +1,13 @@
-/* this script loads the youtube search API and configures the page
- *
- * next I need to properly connect search.js <--> player.js so that
- * the player functions are available in the same namespace as the
- * videoId values that are selected by the user
- * 
- * idea:
- * detect innerWidth on every new init, try find biggest screen to
- * isolate/throw player to. develop voting / vetoing / deciding
- * functionality --> more interactive, more game-like. could head
- * toward a mini-game + youtube messaround-platform in long term
- * 
- * player.loadVideoById(); // TYLER, THE CREATOR - BRONCO;
- * player.loadVideoById({ videoId: "pQlbCbD7hgM" });
- * 
- * does this have any ES6? {promises and ``}...MAKE IT ALL ES6 THEN.
- */
+/* this script loads the youtube search API and configures the page */
 
 function start() {
-  // 2. Initialize the JavaScript client library.
+  // 2. Initialize the JavaScript client library
   gapi.client
     .init({
       apiKey: "AIzaSyB_oIhkzTzNLv3lAF5uNqrG31fgZZ4SVjg"
     })
     .then(function() {
-      // 3. Initialize and make the API request.
+      // 3. Initialize and make the API request
       // Load the client interfaces for the YouTube Analytics and Data APIs, which
       // are required to use the Google APIs JS client. More info is available at
       // https://developers.google.com/api-client-library/javascript/dev/dev_jscript#loading-the-client-library-and-the-api
@@ -37,13 +21,18 @@ function start() {
     });
 }
 
-// Search for a specified string on click
-function search() {
-  // check to clear previous search results
+// empty old search results if there are any
+function emptyResults() {
   if (document.querySelector("#search-list").innerHTML !== "") {
     console.log("emptying...");
     document.querySelector("#search-list").innerHTML = "";
   }
+}
+
+// Search for a specified string on click
+function search() {
+  // empty old search results if there are any
+  emptyResults();
 
   // get new query
   var q = $("#query").val();
@@ -57,6 +46,8 @@ function search() {
       videoEmbeddable: true
     })
     .then(function(response) {
+      // console.log(JSON.stringify(response.result, null, "\t"));
+
       // populate #search-container with list of results
       response.result.items.forEach(
         function(item) {
@@ -73,7 +64,6 @@ function search() {
 
           // pass result object to html constructor
           new SearchResult(result);
-          // var str = JSON.stringify(response.result, null, "\t");
         },
         function(reason) {
           console.log("search error: " + reason.result.error.message);
@@ -84,12 +74,13 @@ function search() {
 
 // search result constructor
 function SearchResult(result) {
-  // try hide entire result object inside button id as a string
+  // stringify entire result object to hide inside a <p> id attribute
   var resultString = JSON.stringify(result);
 
   // append results to list
   document.querySelector("#search-list").insertAdjacentHTML(
     "beforeend",
+    // line 103 note: this.id is a DOM node value to easily match resultString
     `<li class="searchLi">
     <p id="${result.id}" style="display:none">${resultString}</p>
       <div class="thumbnail">
@@ -112,19 +103,19 @@ function SearchResult(result) {
   );
 }
 
-// 1. Load the JavaScript client library.
+// 1. Load the JavaScript client library
 gapi.load("client", {
   callback: function() {
-    // Handle gapi.client initialization.
+    // Handle gapi.client initialization
     start();
   },
   onerror: function() {
-    // Handle loading error.
+    // Handle loading error
     console.log("gapi.client failed to load!");
   },
-  timeout: 5000, // 5 seconds.
+  timeout: 5000, // 5 seconds
   ontimeout: function() {
-    // Handle timeout.
+    // Handle timeout
     console.log("gapi.client could not load in a timely manner!");
   }
 });
