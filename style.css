@@ -95,6 +95,10 @@ input {
   padding-top: 0.35rem;
 }
 
+.thumbnail img {
+  margin-left: 0.3rem;
+}
+
 .thumbnail,
 .summary {
   display: inline-block;
